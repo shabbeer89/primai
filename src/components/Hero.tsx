@@ -6,22 +6,26 @@ export default function Hero() {
   const [isVisible] = useState(true);
 
   return (
-    <section className="min-h-screen flex items-center pt-16 pb-8 px-4 md:pt-20 md:pb-20 md:px-10 bg-gradient-to-b from-blue-50 to-white">
-      <div className="max-w-6xl mx-auto w-full">
+    <section className="min-h-screen flex items-center pt-16 pb-8 px-4 md:pt-20 md:pb-20 md:px-10 relative">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <img src="/hero-bg.png" alt="Hero Background" className="w-full h-full object-cover" />
+      </div>
+      <div className="max-w-6xl mx-auto w-full relative z-10">
         {/* Mobile Layout - Centered */}
         <div className="flex flex-col justify-center md:hidden">
           {/* Hero Content - Mobile */}
           <div className="text-center mb-8">
-          <div className={`inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-indigo-50 text-indigo-600 rounded-full text-xs md:text-sm font-semibold mb-4 md:mb-6 opacity-0 transition-all duration-600 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
-            <div className="w-1.5 h-1.5 bg-indigo-600 rounded-full animate-pulse"></div>
+          <div className={`inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-indigo-600/20 text-white rounded-full text-xs md:text-sm font-semibold mb-4 md:mb-6 opacity-0 transition-all duration-600 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
+            <div className="w-1.5 h-1.5 bg-indigo-300 rounded-full animate-pulse"></div>
             <span>Delivering Web3 Innovation</span>
           </div>
 
-          <h1 className={`text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 md:mb-6 opacity-0 transition-all duration-600 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
-            Build the Future with <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Blockchain & AI</span>
+          <h1 className={`text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 md:mb-6 text-white opacity-0 transition-all duration-600 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
+            Build the Future with <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Blockchain & AI</span>
           </h1>
 
-          <p className={`text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed mb-6 md:mb-10 max-w-2xl mx-auto md:mx-0 opacity-0 transition-all duration-600 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
+          <p className={`text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed mb-6 md:mb-10 max-w-2xl mx-auto md:mx-0 opacity-0 transition-all duration-600 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
             Enterprise-grade blockchain solutions, AI-powered automation, and Web3 infrastructure to transform your vision into reality.
           </p>
 
@@ -40,59 +44,23 @@ export default function Hero() {
               </svg>
             </button>
           </div>
-        </div>
-
-        {/* Hero Visual - Mobile Optimized */}
-        <div className={`relative flex justify-center items-center mt-8 opacity-0 transition-all duration-800 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
-          <div className="relative w-full max-w-sm h-64">
-            {/* Main Card */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-72 h-40 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-4 shadow-2xl animate-pulse">
-                <div className="w-10 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg mb-3 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-white/20 rounded"></div>
-                </div>
-                <div className="text-white text-lg font-semibold mb-2 tracking-widest font-mono">•••• •••• •••• 8942</div>
-                <div className="flex justify-between items-end mt-6">
-                  <div>
-                    <div className="text-white/70 text-xs uppercase tracking-wider">Card Holder</div>
-                    <div className="text-white font-semibold text-sm">JOHN DOE</div>
-                  </div>
-                  <div className="text-white font-bold text-xl">PrimAI</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Floating Badges - Mobile Optimized */}
-            <div className="absolute top-12 left-2 bg-white p-2 rounded-lg shadow-lg animate-bounce">
-              <div className="w-6 h-6 bg-blue-100 rounded-lg flex items-center justify-center text-sm">🔒</div>
-              <span className="text-xs font-semibold text-gray-900">Secure</span>
-            </div>
-            <div className="absolute top-16 right-2 bg-white p-2 rounded-lg shadow-lg animate-bounce delay-300">
-              <div className="w-6 h-6 bg-yellow-100 rounded-lg flex items-center justify-center text-sm">⚡</div>
-              <span className="text-xs font-semibold text-gray-900">Fast</span>
-            </div>
-            <div className="absolute bottom-12 left-2 bg-white p-2 rounded-lg shadow-lg animate-bounce delay-700">
-              <div className="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center text-sm">✓</div>
-              <span className="text-xs font-semibold text-gray-900">Verified</span>
-            </div>
-          </div>
-        </div>
+        </div>      
         </div>
 
         {/* Desktop Layout - Side by Side */}
         <div className="hidden md:grid md:grid-cols-2 md:gap-20 md:items-center">
           {/* Hero Content - Desktop Left */}
           <div className="max-w-2xl">
-            <div className={`inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-full text-sm font-semibold mb-6 opacity-0 transition-all duration-600 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
-              <div className="w-1.5 h-1.5 bg-indigo-600 rounded-full animate-pulse"></div>
+            <div className={`inline-flex items-center gap-2 px-4 py-2 bg-indigo-600/20 text-white rounded-full text-sm font-semibold mb-6 opacity-0 transition-all duration-600 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
+              <div className="w-1.5 h-1.5 bg-indigo-300 rounded-full animate-pulse"></div>
               <span>Delivering Web3 Innovation</span>
             </div>
 
-            <h1 className={`text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-6 opacity-0 transition-all duration-600 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
-              Build the Future with <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Blockchain & AI</span>
+            <h1 className={`text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-6 text-white opacity-0 transition-all duration-600 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
+              Build the Future with <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Blockchain & AI</span>
             </h1>
 
-            <p className={`text-xl text-gray-600 leading-relaxed mb-10 opacity-0 transition-all duration-600 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
+            <p className={`text-xl text-gray-300 leading-relaxed mb-10 opacity-0 transition-all duration-600 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
               Enterprise-grade blockchain solutions, AI-powered automation, and Web3 infrastructure to transform your vision into reality.
             </p>
 
@@ -113,41 +81,7 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Hero Visual - Desktop Right */}
-          <div className={`relative flex justify-center items-center opacity-0 transition-all duration-800 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
-            <div className="relative w-full max-w-md h-96">
-              {/* Main Card */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-80 h-48 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 shadow-2xl animate-pulse">
-                  <div className="w-12 h-10 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg mb-4 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-white/20 rounded"></div>
-                  </div>
-                  <div className="text-white text-xl font-semibold mb-2 tracking-widest font-mono">•••• •••• •••• 8942</div>
-                  <div className="flex justify-between items-end mt-8">
-                    <div>
-                      <div className="text-white/70 text-xs uppercase tracking-wider">Card Holder</div>
-                      <div className="text-white font-semibold">JOHN DOE</div>
-                    </div>
-                    <div className="text-white font-bold text-2xl">PrimAI</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating Badges - Desktop */}
-              <div className="absolute top-16 left-0 bg-white p-3 rounded-lg shadow-lg animate-bounce">
-                <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center text-lg">🔒</div>
-                <span className="text-sm font-semibold text-gray-900">Secure</span>
-              </div>
-              <div className="absolute top-20 right-0 bg-white p-3 rounded-lg shadow-lg animate-bounce delay-300">
-                <div className="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center text-lg">⚡</div>
-                <span className="text-sm font-semibold text-gray-900">Fast</span>
-              </div>
-              <div className="absolute bottom-16 left-0 bg-white p-3 rounded-lg shadow-lg animate-bounce delay-700">
-                <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center text-lg">✓</div>
-                <span className="text-sm font-semibold text-gray-900">Verified</span>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
     </section>
