@@ -52,11 +52,8 @@ export default function Navbar() {
 
         {/* Desktop navigation */}
         <ul className="hidden md:flex gap-10 list-none items-center">
-          <li><Link href="#solutions" className="text-gray-700 hover:text-indigo-600 text-[15px] font-medium transition-colors py-2">Solutions</Link></li>
-          <li><Link href="#products" className="text-gray-700 hover:text-indigo-600 text-[15px] font-medium transition-colors py-2">Products</Link></li>
-          <li><Link href="#company" className="text-gray-700 hover:text-indigo-600 text-[15px] font-medium transition-colors py-2">Company</Link></li>
-          <li><Link href="#resources" className="text-gray-700 hover:text-indigo-600 text-[15px] font-medium transition-colors py-2">Resources</Link></li>
-          <li><Link href="#contact" className="bg-indigo-600 text-white px-6 py-2.5 rounded-lg font-semibold transition-all hover:bg-indigo-700 hover:-translate-y-0.5 shadow-lg hover:shadow-xl">Get Started</Link></li>
+         
+          <li><Link href="#contact" className="bg-indigo-600 text-white px-6 py-2.5 rounded-lg font-semibold transition-all hover:bg-indigo-700 hover:-translate-y-0.5 shadow-lg hover:shadow-xl">Affilliate</Link></li>
         </ul>
       </div>
 

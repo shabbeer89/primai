@@ -16,10 +16,9 @@ export default function Footer() {
 
         {/* Main Heading */}
         <h3 className="px-4 text-sm font-medium sm:text-center sm:text-4xl sm:leading-[60px] mb-1">
-          Start your stablecoin payment journey with RedotPay
-        </h3>
-        <h2 className="px-4 text-[26px] font-semibold sm:text-center sm:text-5xl sm:leading-[60px] mb-8">
-          Swift<span className="text-blue-500">.</span> Seamless<span className="text-blue-500">.</span> Secure<span className="text-blue-500">.</span>
+Start your Amazing journey into the Web3 revolution with PrimAI        </h3>
+        <h2 className="px-4 text-[26px] font-semibold sm:text-center sm:text-4xl sm:leading-[60px] mb-8">
+          Innovate<span className="text-blue-500">.</span> Automate<span className="text-blue-500">.</span> Accelerate<span className="text-blue-500">.</span>
         </h2>
 
         <div className="hidden lg:block mb-12">

@@ -21,8 +21,9 @@ export default function Hero() {
             <span>Delivering Web3 Innovation</span>
           </div>
 
-          <h1 className={`text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 md:mb-6 text-white opacity-0 transition-all duration-600 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
-            Build the Future with <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Blockchain & AI</span>
+          <h1 className={`text-base md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 md:mb-6 text-white opacity-0 transition-all duration-600 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
+            <span className="block">Build the Future with</span>
+            <span className="block bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">AI, Blockchain & Web3</span>
           </h1>
 
           <p className={`text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed mb-6 md:mb-10 max-w-2xl mx-auto md:mx-0 opacity-0 transition-all duration-600 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
@@ -57,7 +58,8 @@ export default function Hero() {
             </div>
 
             <h1 className={`text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-6 text-white opacity-0 transition-all duration-600 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>
-              Build the Future with <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Blockchain & AI</span>
+              <span className="block whitespace-nowrap">Build the Future with</span>
+              <span className="block whitespace-nowrap bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">AI, Blockchain & Web3</span>
             </h1>
 
             <p className={`text-xl text-gray-300 leading-relaxed mb-10 opacity-0 transition-all duration-600 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'translate-y-4'}`}>

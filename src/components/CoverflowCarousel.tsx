@@ -11,25 +11,25 @@ const carouselData = [
   },
   {
     category: "Trading & Financial Tools",
-    title: "Crypto TRading Bot ",
-    description: "Automated trading strategies for crypto and financialmarkets.",
+    title: "Crypto Trading Bot ",
+    description: "Automated trading strategies for crypto and financial markets.",
     gradient: ["#4facfe", "#00f2fe"]
   },
   {
     category: "Web3 based Education & Community",
-    title: "Portfolio Website for Mlm/networking professionals",
+    title: "Portfolio Website for Networking Professionals",
     description: "Affiliate-driven decentralized projects with multi-layer incentive structures.",
     gradient: ["#43e97b", "#38f9d7"]
   },
   {
     category: "Web3",
     title: "Business Webpage",
-    description: "rebuilt for the decentralized era. Sleek, secure, and smart websites powered by blockchain tech and AI automation.",
+    description: "Rebuilt for the De-centralized era. Sleek, secure, and smart websites powered by Blockchain technology and AI automation.",
     gradient: ["#a8edea", "#fed6e3"]
   },
   {
     category: "AI",
-    title: "AI chatbot",
+    title: "AI Chatbot",
     description: "Intelligent conversational agents for customer support, onboarding, or engagement.",
     gradient: ["#f093fb", "#f5576c"]
   },
@@ -43,25 +43,37 @@ const carouselData = [
 
 export default function CoverflowCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [remainingTime, setRemainingTime] = useState(10);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const advanceInterval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % carouselData.length);
-    }, 5000);
+      setRemainingTime(10);
+    }, 10000);
 
-    return () => clearInterval(interval);
+    const countdownInterval = setInterval(() => {
+      setRemainingTime((prev) => (prev > 0 ? prev - 1 : 10));
+    }, 1000);
+
+    return () => {
+      clearInterval(advanceInterval);
+      clearInterval(countdownInterval);
+    };
   }, []);
 
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
+    setRemainingTime(10);
   };
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % carouselData.length);
+    setRemainingTime(10);
   };
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev - 1 + carouselData.length) % carouselData.length);
+    setRemainingTime(10);
   };
 
   return (
@@ -115,9 +127,42 @@ export default function CoverflowCarousel() {
                   >
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                      <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-semibold uppercase tracking-wide mb-4">
-                        {item.category}
+                      <div className={`flex justify-between items-start mb-4 ${position === 0 ? '' : 'hidden'}`}>
+                        <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-semibold uppercase tracking-wide">
+                          {item.category}
+                        </div>
+                        <div className="w-12 h-12 relative">
+                          <svg width="48" height="48" className="transform -rotate-90">
+                            <circle
+                              cx="24"
+                              cy="24"
+                              r="18"
+                              stroke="#ffffff40"
+                              strokeWidth="3"
+                              fill="none"
+                            />
+                            <circle
+                              cx="24"
+                              cy="24"
+                              r="18"
+                              stroke="#fff"
+                              strokeWidth="3"
+                              fill="none"
+                              strokeDasharray={2 * Math.PI * 18}
+                              strokeDashoffset={2 * Math.PI * 18 * (1 - remainingTime / 10)}
+                              style={{ transition: 'stroke-dashoffset 1s ease-in-out' }}
+                            />
+                          </svg>
+                          <div className="absolute inset-0 flex items-center justify-center text-xs font-bold">
+                            {remainingTime}
+                          </div>
+                        </div>
                       </div>
+                      {position !== 0 && (
+                        <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-semibold uppercase tracking-wide mb-4">
+                          {item.category}
+                        </div>
+                      )}
                       <h3 className="text-2xl font-bold mb-2 leading-tight">{item.title}</h3>
                       <p className="text-sm text-white/90 leading-relaxed mb-4">{item.description}</p>
                       <div className="flex items-center gap-2 text-sm font-semibold">

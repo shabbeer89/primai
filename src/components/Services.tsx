@@ -70,7 +70,7 @@ const serviceSlides = [
     badge: "LEARN & EARN",
     badgeColor: "from-teal-400 to-pink-500",
     title: "Education & Community",
-    description: "A growing hub for innovators, learners, and creators — uniting people through knowledge, mentorship, and collaboration.",
+    description: "A growing hub for innovators, learners, and creators. Uniting people through knowledge, mentorship, and collaboration.",
     features: [
       "Web3 Educational Platform",
       "MLM-Based Web3 Projects",
@@ -182,13 +182,22 @@ export default function Services() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeService, setActiveService] = useState(mobileServices[0].id);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [remainingTime, setRemainingTime] = useState(10);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const advanceInterval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % serviceSlides.length);
-    }, 6000);
+      setRemainingTime(10);
+    }, 10000);
 
-    return () => clearInterval(interval);
+    const countdownInterval = setInterval(() => {
+      setRemainingTime((prev) => (prev > 0 ? prev - 1 : 10));
+    }, 1000);
+
+    return () => {
+      clearInterval(advanceInterval);
+      clearInterval(countdownInterval);
+    };
   }, []);
 
   useEffect(() => {
@@ -199,10 +208,21 @@ export default function Services() {
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
+    setRemainingTime(10);
+  };
+
+  const goToPrevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + serviceSlides.length) % serviceSlides.length);
+    setRemainingTime(10);
+  };
+
+  const goToNextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % serviceSlides.length);
+    setRemainingTime(10);
   };
 
   return (
-    <section className="py-8 md:py-16 px-4 md:px-10 bg-white">
+    <section className="py-8 md:py-16 px-4 md:px-10 bg-gradient-to-br from-purple-50 to-purple-100 ">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-6 md:mb-10">
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 md:mb-3 leading-tight">PrimAI Innovation Suite</h2>
@@ -260,7 +280,7 @@ export default function Services() {
 
         {/* Desktop Auto-Scrolling Carousel */}
         <div className="hidden md:block">
-          <div className="relative overflow-hidden rounded-2xl bg-white p-8 shadow-xl border border-gray-200">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100">
             <div className="overflow-hidden relative">
               <div className="flex transition-transform duration-700 ease-out" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
                 {serviceSlides.map((slide, index) => (
@@ -268,27 +288,57 @@ export default function Services() {
                     <div className="flex-1 max-w-full md:max-w-[480px] space-y-0 order-2 md:order-1 px-0 flex flex-col">
                       {/* Fixed header section */}
                       <div className="mb-4">
-                        <div className={`inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${slide.badgeColor} text-white rounded-full text-sm font-bold uppercase tracking-wider mb-3 ${isAnimating && currentSlide === index ? 'animate-pulse' : ''}`}>
-                          <div className="w-2 h-2 bg-white rounded-full"></div>
-                          {slide.badge}
+                        <div className={`flex justify-between items-center mb-3 ${index === currentSlide ? '' : ''}`}>
+                          <div className={`inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${slide.badgeColor} text-white rounded-full text-sm font-bold uppercase tracking-wider ${isAnimating && currentSlide === index ? 'animate-pulse' : ''}`}>
+                            <div className="w-2 h-2 bg-white rounded-full"></div>
+                            {slide.badge}
+                          </div>
+                          {index === currentSlide && (
+                            <div className="w-12 h-12 relative rounded-full flex items-center justify-center">
+                              <svg width="48" height="48" className="transform -rotate-90">
+                                <circle
+                                  cx="24"
+                                  cy="24"
+                                  r="20"
+                                  stroke="#1e40af80"
+                                  strokeWidth="2"
+                                  fill="none"
+                                />
+                                <circle
+                                  cx="24"
+                                  cy="24"
+                                  r="20"
+                                  stroke="#1e40af"
+                                  strokeWidth="2"
+                                  fill="none"
+                                  strokeDasharray={2 * Math.PI * 20}
+                                  strokeDashoffset={2 * Math.PI * 20 * (1 - remainingTime / 10)}
+                                  style={{ transition: 'stroke-dashoffset 1s ease-in-out' }}
+                                />
+                              </svg>
+                              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-xl font-bold text-blue-900">
+                                {remainingTime}
+                              </div>
+                            </div>
+                          )}
                         </div>
-                        <h3 className="text-xl md:text-3xl font-bold text-gray-900 leading-tight mb-2">{slide.title}</h3>
-                        <p className="text-base text-gray-600 leading-relaxed">{slide.description}</p>
+                        <h3 className="text-xl md:text-3xl font-bold text-black-900 leading-tight mb-2">{slide.title}</h3>
+                        <p className="text-base text-black-700 leading-relaxed">{slide.description}</p>
                       </div>
                       
                       {/* Scrollable content section */}
                       <div className="flex-1 overflow-y-auto mb-4 overflow-x-hidden">
                         <ul className="space-y-2">
                           {slide.features.map((feature, idx) => (
-                            <li 
-                              key={idx} 
-                              className={`flex items-start gap-3 text-gray-700 font-medium text-sm transition-all duration-700 ease-out ${
+                            <li
+                              key={idx}
+                              className={`flex items-start gap-3 text-black-700 font-medium text-black-500 transition-all duration-700 ease-out ${
                                 currentSlide === index && !isAnimating
-                                  ? 'translate-x-0 opacity-100' 
+                                  ? 'translate-x-0 opacity-100'
                                   : '-translate-x-12 opacity-0'
-                              }`} 
-                              style={{ 
-                                transitionDelay: currentSlide === index && !isAnimating ? `${idx * 100}ms` : '0ms' 
+                              }`}
+                              style={{
+                                transitionDelay: currentSlide === index && !isAnimating ? `${idx * 100}ms` : '0ms'
                               }}
                             >
                               <span className="text-indigo-600 mt-0.5 text-base">•</span>
@@ -297,10 +347,10 @@ export default function Services() {
                           ))}
                         </ul>
                       </div>
-                      
+
                       {/* Fixed footer section */}
-                      <div className="mt-auto">
-                        <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-bold text-sm hover:shadow-lg hover:scale-105 transition-all flex items-center justify-center gap-2 min-h-[40px] w-full md:w-auto">
+                      <div className="mt-auto mb-6 flex justify-end">
+                        <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-bold text-sm hover:shadow-lg hover:scale-105 transition-all flex items-center justify-center gap-2 min-h-[40px]">
                           Explore Solutions
                           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                             <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -327,20 +377,45 @@ export default function Services() {
             </div>
           </div>
 
-          {/* Dots - Touch friendly */}
-          <div className="flex justify-center gap-2 mt-4">
-            {serviceSlides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`w-2 h-2 rounded-full transition-all min-h-[36px] min-w-[36px] md:min-h-0 md:min-w-0 flex items-center justify-center ${
-                  index === currentSlide
-                    ? 'bg-indigo-600 scale-125'
-                    : 'bg-gray-300 hover:bg-gray-400'
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
+          {/* Navigation Controls */}
+          <div className="flex items-center justify-center gap-4 mt-4">
+            {/* Left Arrow */}
+            <button
+              onClick={goToPrevSlide}
+              className="w-10 h-10 rounded-full bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-all flex items-center justify-center shadow-sm hover:shadow-md min-h-[44px] min-w-[44px]"
+              aria-label="Previous slide"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6"/>
+              </svg>
+            </button>
+
+            {/* Dots */}
+            <div className="flex gap-2">
+              {serviceSlides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`w-2 h-2 rounded-full transition-all min-h-[36px] min-w-[36px] md:min-h-0 md:min-w-0 flex items-center justify-center ${
+                    index === currentSlide
+                      ? 'bg-indigo-600 scale-125'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Right Arrow */}
+            <button
+              onClick={goToNextSlide}
+              className="w-10 h-10 rounded-full bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-all flex items-center justify-center shadow-sm hover:shadow-md min-h-[44px] min-w-[44px]"
+              aria-label="Next slide"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
           </div>
         </div>
       </div>
