@@ -34,6 +34,12 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# Google service account keys
+*.json
+!package.json
+!tsconfig.json
+public/bnet-*-*.json
+
 # vercel
 .vercel
 
