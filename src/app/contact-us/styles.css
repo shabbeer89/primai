@@ -1,0 +1,97 @@
+/* General Styles */
+.container {
+  padding: 0 2rem;
+}
+
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Title and Description */
+.contact-us-title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.title {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.description {
+  margin: 1rem 0;
+  line-height: 1.5;
+  font-size: 1.2rem;
+  text-align: center;
+  max-width: 600px;
+}
+
+/* Divider */
+.divider {
+  border: 0;
+  border-top: 1px solid #eaeaea;
+  margin: 2rem 0;
+  width: 50%;
+}
+
+/* Sections */
+.talk-to-us,
+.why-reach-out,
+.talking-live,
+.where-we-operate,
+.follow-journey,
+.we-are-primai {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.talk-to-us h2,
+.why-reach-out h2,
+.talking-live h2,
+.where-we-operate h2,
+.follow-journey h2,
+.we-are-primai h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.talk-to-us p,
+.why-reach-out p,
+.talking-live p,
+.where-we-operate p,
+.follow-journey p,
+.we-are-primai p {
+  margin-bottom: 1rem;
+}
+
+/* Lists */
+.why-reach-out ul,
+.follow-journey ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  display: inline-block;
+}
+
+.why-reach-out li,
+.follow-journey li {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+/* Footer Text */
+.footer-text {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-top: 2rem;
+}
