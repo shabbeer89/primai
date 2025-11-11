@@ -45,12 +45,14 @@ export default function AffiliatePage() {
               >
                 Apply as BDE
               </Link>
-              <Link
-                href="/get-started"
-                className="bg-white/10 backdrop-blur-lg text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20"
+              <a
+                href="/api/download-affiliate-plan"
+                className="bg-white/10 backdrop-blur-lg text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20 inline-block"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                Download The Affilliate Plan
-              </Link>
+                Download The Affiliate Plan
+              </a>
             </div>
           </div>
         </div>
