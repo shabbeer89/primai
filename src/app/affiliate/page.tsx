@@ -51,7 +51,7 @@ export default function AffiliatePage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Download The Affiliate Plan
+                Download Affiliate Plan
               </a>
             </div>
         </div>
