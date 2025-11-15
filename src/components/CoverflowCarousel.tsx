@@ -8,37 +8,49 @@ const carouselData = [
     category: "Crypto & Block chain",
     title: "Token Generation with WEb 3 page",
     description: "Launch tokenized projects with end-to-end token sale management.",
-    gradient: ["#667eea", "#764ba2"]
+    gradient: ["#667eea", "#764ba2"],
+    image: "/blockchain-service.jpeg",
+    darkText: false // dark background, light text
   },
   {
     category: "Trading & Financial Tools",
     title: "Crypto Trading Bot ",
     description: "Automated trading strategies for crypto and financial markets.",
-    gradient: ["#4facfe", "#00f2fe"]
+    gradient: ["#1e3c72", "#2a5298"],
+    image: "/trading-service.jpeg",
+    darkText: false // dark navy blue, light text
   },
   {
-    category: "Web3 based Education & Community",
-    title: "Portfolio Website for Networking Professionals",
+    category: "Web3 Education & Community",
+    title: "Networking Portfolio",
     description: "Affiliate-driven decentralized projects with multi-layer incentive structures.",
-    gradient: ["#43e97b", "#38f9d7"]
+    gradient: ["#ff0080", "#7928ca"],
+    image: "/learn-service.jpeg",
+    darkText: false // striking magenta to purple gradient, light text
   },
   {
     category: "Web3",
     title: "Business Webpage",
-    description: "Rebuilt for the De-centralized era. Sleek, secure, and smart websites powered by Blockchain technology and AI automation.",
-    gradient: ["#a8edea", "#fed6e3"]
+    description: "Built for the decentralized era with sleek, secure websites powered by blockchain and AI.",
+    gradient: ["#a8edea", "#fed6e3"],
+    image: "/blockchain-service.jpeg",
+    darkText: true // light background, dark text
   },
   {
     category: "AI",
     title: "AI Chatbot",
     description: "Intelligent conversational agents for customer support, onboarding, or engagement.",
-    gradient: ["#f093fb", "#f5576c"]
+    gradient: ["#7c3aed", "#a855f7"],
+    image: "/ai-service.jpeg",
+    darkText: false // vibrant purple to violet gradient, light text
   },
   {
     category: "Advance Digital Marketing",
     title: "Digital Marketing",
     description: "From performance analytics to predictive strategy — we help brands evolve, engage, and expand globally.",
-    gradient: ["#fa709a", "#fee140"]
+    gradient: ["#ff416c", "#ff4b2b"],
+    image: "/marketing-service.jpeg",
+    darkText: false // vibrant red-orange gradient, light text
   }
 ];
 
@@ -121,60 +133,89 @@ export default function CoverflowCarousel() {
                   style={{ zIndex }}
                   onClick={() => goToSlide(index)}
                 >
-                  <div
-                    className="w-full h-full bg-gradient-to-br opacity-100 hover:scale-105 transition-transform"
-                    style={{
-                      background: `linear-gradient(135deg, ${item.gradient[0]}, ${item.gradient[1]})`
-                    }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                      <div className={`flex justify-between items-start mb-4 ${position === 0 ? '' : 'hidden'}`}>
-                        <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-semibold uppercase tracking-wide">
-                          {item.category}
-                        </div>
-                        <div className="w-12 h-12 relative">
-                          <svg width="48" height="48" className="transform -rotate-90">
-                            <circle
-                              cx="24"
-                              cy="24"
-                              r="18"
-                              stroke="#ffffff40"
-                              strokeWidth="3"
-                              fill="none"
-                            />
-                            <circle
-                              cx="24"
-                              cy="24"
-                              r="18"
-                              stroke="#fff"
-                              strokeWidth="3"
-                              fill="none"
-                              strokeDasharray={2 * Math.PI * 18}
-                              strokeDashoffset={2 * Math.PI * 18 * (1 - remainingTime / 10)}
-                              style={{ transition: 'stroke-dashoffset 1s ease-in-out' }}
-                            />
-                          </svg>
-                          <div className="absolute inset-0 flex items-center justify-center text-xs font-bold">
-                            {remainingTime}
+                  <div className="w-full h-full bg-gradient-to-br opacity-100 hover:scale-105 transition-transform">
+                    {/* Image Section - Top 1/3 */}
+                    <div className="h-1/3 relative overflow-hidden rounded-t-3xl">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/20"></div>
+                    </div>
+
+                    {/* Content Section - Bottom 2/3 */}
+                    <div
+                      className="h-2/3 relative"
+                      style={{
+                        background: `linear-gradient(135deg, ${item.gradient[0]}, ${item.gradient[1]})`
+                      }}
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <div className={`absolute bottom-0 left-0 right-0 p-8 ${item.darkText ? 'text-gray-900' : 'text-white'}`}>
+                          <div className={`flex justify-between items-start mb-4 ${position === 0 ? '' : 'hidden'}`}>
+                            <div className={`inline-block px-3 py-1 backdrop-blur-sm rounded-full text-xs font-semibold uppercase tracking-wide ${
+                              item.darkText ? 'bg-gray-900/20 text-gray-900' : 'bg-white/20 text-white'
+                            }`}>
+                              {item.category}
+                            </div>
+                          </div>
+                          {position !== 0 && (
+                            <div className={`inline-block px-3 py-1 backdrop-blur-sm rounded-full text-xs font-semibold uppercase tracking-wide mb-4 ${
+                              item.darkText ? 'bg-gray-900/20 text-gray-900' : 'bg-white/20 text-white'
+                            }`}>
+                              {item.category}
+                            </div>
+                          )}
+                          <h3 className="text-2xl font-bold mb-2 leading-tight">{item.title}</h3>
+                          <p className={`text-sm leading-relaxed mb-4 ${
+                            item.darkText ? 'text-gray-700' : 'text-white/90'
+                          }`}>
+                            {item.description}
+                          </p>
+                          <div className="flex justify-between items-end">
+                            <div className={`flex items-center gap-2 text-sm font-semibold ${
+                              item.darkText ? 'text-gray-900' : 'text-white'
+                            }`}>
+                              View Case Study
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                            </div>
+
+                            {/* Timer positioned at bottom right */}
+                            <div className="w-12 h-12 relative">
+                              <svg width="48" height="48" className="transform -rotate-90">
+                                <circle
+                                  cx="24"
+                                  cy="24"
+                                  r="18"
+                                  stroke={item.darkText ? '#37415180' : '#ffffff40'}
+                                  strokeWidth="3"
+                                  fill="none"
+                                />
+                                <circle
+                                  cx="24"
+                                  cy="24"
+                                  r="18"
+                                  stroke={item.darkText ? '#374151' : '#fff'}
+                                  strokeWidth="3"
+                                  fill="none"
+                                  strokeDasharray={2 * Math.PI * 18}
+                                  strokeDashoffset={2 * Math.PI * 18 * (1 - remainingTime / 10)}
+                                  style={{ transition: 'stroke-dashoffset 1s ease-in-out' }}
+                                />
+                              </svg>
+                              <div className={`absolute inset-0 flex items-center justify-center text-xs font-bold ${
+                                item.darkText ? 'text-gray-900' : 'text-white'
+                              }`}>
+                                {remainingTime}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                      {position !== 0 && (
-                        <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-semibold uppercase tracking-wide mb-4">
-                          {item.category}
-                        </div>
-                      )}
-                      <h3 className="text-2xl font-bold mb-2 leading-tight">{item.title}</h3>
-                      <p className="text-sm text-white/90 leading-relaxed mb-4">{item.description}</p>
-                      <div className="flex items-center gap-2 text-sm font-semibold">
-                        View Case Study
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
                     </div>
-                  </div>
                 </div>
               );
             })}

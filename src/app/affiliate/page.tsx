@@ -40,7 +40,7 @@ export default function AffiliatePage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/get-started"
+                href="/get-started?mode=bde"
                 className="bg-indigo-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-indigo-700 hover:-translate-y-1 transition-all shadow-lg hover:shadow-xl"
               >
                 Apply as BDE

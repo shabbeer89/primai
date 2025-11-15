@@ -99,29 +99,65 @@ Start your Amazing journey into the Web3 revolution with PrimAI        </h3>
        
 
         {/* Company/Links Section - Mobile/Tablet */}
-        <div className="block lg:hidden mb-12">
-          <div className="flex flex-col space-y-8 text-center">
+        <div className="block lg:hidden mb-4">
+          <div className="flex flex-col space-y-4 text-center">
             <div>
-              <h4 className="mb-6 text-lg font-semibold">Company</h4>
-              <ul className="space-y-3">
-                <li><a href="/about-us" className="text-gray-300 hover:text-white transition-colors">About Us</a></li>
-                <li><a href="/community" className="text-gray-300 hover:text-white transition-colors">Community</a></li>
-                <li><a href="/affiliates" className="text-gray-300 hover:text-white transition-colors">Affiliate</a></li>
-              </ul>
+              <button
+                onClick={() => toggleAccordion('company')}
+                className="w-full flex items-center justify-center mb-4 text-lg font-semibold hover:text-blue-400 transition-colors"
+              >
+                Company
+                <ChevronDown
+                  className={`ml-2 w-5 h-5 transition-transform ${
+                    openAccordion === 'company' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {openAccordion === 'company' && (
+                <ul className="space-y-3">
+                  <li><a href="/about-us" className="text-gray-300 hover:text-white transition-colors">About Us</a></li>
+                  <li><a href="/community" className="text-gray-300 hover:text-white transition-colors">Community</a></li>
+                  <li><a href="/affiliates" className="text-gray-300 hover:text-white transition-colors">Affiliate</a></li>
+                </ul>
+              )}
             </div>
             <div>
-              <h4 className="mb-6 text-lg font-semibold">Resources</h4>
-              <ul className="space-y-3">
-                <li><a href="/news" className="text-gray-300 hover:text-white transition-colors">Blogs</a></li>
-              </ul>
+              <button
+                onClick={() => toggleAccordion('resources')}
+                className="w-full flex items-center justify-center mb-4 text-lg font-semibold hover:text-blue-400 transition-colors"
+              >
+                Resources
+                <ChevronDown
+                  className={`ml-2 w-5 h-5 transition-transform ${
+                    openAccordion === 'resources' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {openAccordion === 'resources' && (
+                <ul className="space-y-3">
+                  <li><a href="/news" className="text-gray-300 hover:text-white transition-colors">Blogs</a></li>
+                </ul>
+              )}
             </div>
             <div>
-              <h4 className="mb-6 text-lg font-semibold">Support</h4>
-              <ul className="space-y-3">
-                <li><a href="/contact-us" className="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
-                <li><a href="https://helpcenter.redotpay.com" className="text-gray-300 hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="/terms" className="text-gray-300 hover:text-white transition-colors">Terms & Conditions</a></li>
-              </ul>
+              <button
+                onClick={() => toggleAccordion('support')}
+                className="w-full flex items-center justify-center mb-4 text-lg font-semibold hover:text-blue-400 transition-colors"
+              >
+                Support
+                <ChevronDown
+                  className={`ml-2 w-5 h-5 transition-transform ${
+                    openAccordion === 'support' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {openAccordion === 'support' && (
+                <ul className="space-y-3">
+                  <li><a href="/contact-us" className="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
+                  <li><a href="https://helpcenter.redotpay.com" className="text-gray-300 hover:text-white transition-colors">Help Center</a></li>
+                  <li><a href="/terms" className="text-gray-300 hover:text-white transition-colors">Terms & Conditions</a></li>
+                </ul>
+              )}
             </div>
           </div>
         </div>
@@ -129,50 +165,110 @@ Start your Amazing journey into the Web3 revolution with PrimAI        </h3>
         {/* Services Row - Mobile/Tablet */}
         <div className="block lg:hidden mb-8">
           <h4 className="text-xl font-semibold mb-8 text-center">Our Services</h4>
-          <div className="space-y-8">
+          <div className="space-y-6">
             <div className="text-center">
-              <h5 className="text-lg font-semibold mb-4 text-blue-400">Crypto & Blockchain Solutions</h5>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="/centralized-exchange" className="hover:text-white transition-colors">Centralized Exchange (CEX)</a></li>
-                <li><a href="/ico-offering" className="hover:text-white transition-colors">ICO (Initial Coin Offering)</a></li>
-                <li><a href="/rwa-tokenization" className="hover:text-white transition-colors">RWA Tokenization (Real-World Asset)</a></li>
-                <li><a href="/blockchain-development" className="hover:text-white transition-colors">Layer 1 & Layer 2 Blockchain Development</a></li>
-                <li><a href="/wallets" className="hover:text-white transition-colors">Custodian & Non-Custodian Wallets</a></li>
-                <li><a href="/digital-identity" className="hover:text-white transition-colors">Digital Identity on Blockchain</a></li>
-              </ul>
+              <button
+                onClick={() => toggleAccordion('crypto-blockchain')}
+                className="w-full flex items-center justify-center mb-4 text-lg font-semibold text-blue-400 hover:text-blue-300 transition-colors"
+              >
+                Crypto & Blockchain Solutions
+                <ChevronDown
+                  className={`ml-2 w-5 h-5 transition-transform ${
+                    openAccordion === 'crypto-blockchain' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {openAccordion === 'crypto-blockchain' && (
+                <ul className="space-y-2 text-sm text-gray-300">
+                  <li><a href="/centralized-exchange" className="hover:text-white transition-colors">Centralized Exchange (CEX)</a></li>
+                  <li><a href="/ico-offering" className="hover:text-white transition-colors">ICO (Initial Coin Offering)</a></li>
+                  <li><a href="/rwa-tokenization" className="hover:text-white transition-colors">RWA Tokenization (Real-World Asset)</a></li>
+                  <li><a href="/blockchain-development" className="hover:text-white transition-colors">Layer 1 & Layer 2 Blockchain Development</a></li>
+                  <li><a href="/wallets" className="hover:text-white transition-colors">Custodian & Non-Custodian Wallets</a></li>
+                  <li><a href="/digital-identity" className="hover:text-white transition-colors">Digital Identity on Blockchain</a></li>
+                </ul>
+              )}
             </div>
             <div className="text-center">
-              <h5 className="text-lg font-semibold mb-4 text-blue-400">Trading & Financial Tools</h5>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="/trading-bot" className="hover:text-white transition-colors">AI-Powered Trading Bot</a></li>
-                <li><a href="/p2p-platform" className="hover:text-white transition-colors">P2P Trading Platform</a></li>
-                <li><a href="/carbon-marketing" className="hover:text-white transition-colors">Carbon Marketing Solutions</a></li>
-              </ul>
+              <button
+                onClick={() => toggleAccordion('trading-tools')}
+                className="w-full flex items-center justify-center mb-4 text-lg font-semibold text-blue-400 hover:text-blue-300 transition-colors"
+              >
+                Trading & Financial Tools
+                <ChevronDown
+                  className={`ml-2 w-5 h-5 transition-transform ${
+                    openAccordion === 'trading-tools' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {openAccordion === 'trading-tools' && (
+                <ul className="space-y-2 text-sm text-gray-300">
+                  <li><a href="/trading-bot" className="hover:text-white transition-colors">AI-Powered Trading Bot</a></li>
+                  <li><a href="/p2p-platform" className="hover:text-white transition-colors">P2P Trading Platform</a></li>
+                  <li><a href="/carbon-marketing" className="hover:text-white transition-colors">Carbon Marketing Solutions</a></li>
+                </ul>
+              )}
             </div>
             <div className="text-center">
-              <h5 className="text-lg font-semibold mb-4 text-blue-400">AI & Generative Technology</h5>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="/gen-ai-bot" className="hover:text-white transition-colors">Gen AI Bot</a></li>
-                <li><a href="/ai-chatbot" className="hover:text-white transition-colors">AI Chatbot</a></li>
-              </ul>
+              <button
+                onClick={() => toggleAccordion('ai-tech')}
+                className="w-full flex items-center justify-center mb-4 text-lg font-semibold text-blue-400 hover:text-blue-300 transition-colors"
+              >
+                AI & Generative Technology
+                <ChevronDown
+                  className={`ml-2 w-5 h-5 transition-transform ${
+                    openAccordion === 'ai-tech' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {openAccordion === 'ai-tech' && (
+                <ul className="space-y-2 text-sm text-gray-300">
+                  <li><a href="/gen-ai-bot" className="hover:text-white transition-colors">Gen AI Bot</a></li>
+                  <li><a href="/ai-chatbot" className="hover:text-white transition-colors">AI Chatbot</a></li>
+                </ul>
+              )}
             </div>
             <div className="text-center">
-              <h5 className="text-lg font-semibold mb-4 text-blue-400">Education & Community</h5>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="/web3-education" className="hover:text-white transition-colors">Web3 Educational Platform</a></li>
-                <li><a href="/mlm-web3" className="hover:text-white transition-colors">MLM-Based Web3 Projects</a></li>
-              </ul>
+              <button
+                onClick={() => toggleAccordion('education')}
+                className="w-full flex items-center justify-center mb-4 text-lg font-semibold text-blue-400 hover:text-blue-300 transition-colors"
+              >
+                Education & Community
+                <ChevronDown
+                  className={`ml-2 w-5 h-5 transition-transform ${
+                    openAccordion === 'education' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {openAccordion === 'education' && (
+                <ul className="space-y-2 text-sm text-gray-300">
+                  <li><a href="/web3-education" className="hover:text-white transition-colors">Web3 Educational Platform</a></li>
+                  <li><a href="/mlm-web3" className="hover:text-white transition-colors">MLM-Based Web3 Projects</a></li>
+                </ul>
+              )}
             </div>
             <div className="text-center">
-              <h5 className="text-lg font-semibold mb-4 text-blue-400">Advanced Digital Marketing</h5>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="/content-creation" className="hover:text-white transition-colors">AI-Powered Content Creation</a></li>
-                <li><a href="/web3-growth-marketing" className="hover:text-white transition-colors">Web3 & Blockchain Growth Marketing</a></li>
-                <li><a href="/crypto-influencer" className="hover:text-white transition-colors">Crypto Influencer & Community Campaigns</a></li>
-                <li><a href="/ad-optimization" className="hover:text-white transition-colors">Predictive Ad Optimization & Automation</a></li>
-                <li><a href="/education-funnel" className="hover:text-white transition-colors">AI-Driven Education & Funnel Marketing</a></li>
-                <li><a href="/seo-marketing" className="hover:text-white transition-colors">SEO, Social Media Marketing, Google Ads, Branding</a></li>
-              </ul>
+              <button
+                onClick={() => toggleAccordion('marketing')}
+                className="w-full flex items-center justify-center mb-4 text-lg font-semibold text-blue-400 hover:text-blue-300 transition-colors"
+              >
+                Advanced Digital Marketing
+                <ChevronDown
+                  className={`ml-2 w-5 h-5 transition-transform ${
+                    openAccordion === 'marketing' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {openAccordion === 'marketing' && (
+                <ul className="space-y-2 text-sm text-gray-300">
+                  <li><a href="/content-creation" className="hover:text-white transition-colors">AI-Powered Content Creation</a></li>
+                  <li><a href="/web3-growth-marketing" className="hover:text-white transition-colors">Web3 & Blockchain Growth Marketing</a></li>
+                  <li><a href="/crypto-influencer" className="hover:text-white transition-colors">Crypto Influencer & Community Campaigns</a></li>
+                  <li><a href="/ad-optimization" className="hover:text-white transition-colors">Predictive Ad Optimization & Automation</a></li>
+                  <li><a href="/education-funnel" className="hover:text-white transition-colors">AI-Driven Education & Funnel Marketing</a></li>
+                  <li><a href="/seo-marketing" className="hover:text-white transition-colors">SEO, Social Media Marketing, Google Ads, Branding</a></li>
+                </ul>
+              )}
             </div>
           </div>
         </div>

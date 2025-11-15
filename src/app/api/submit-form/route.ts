@@ -1,23 +1,6 @@
-import { google } from 'googleapis';
 import { NextRequest, NextResponse } from 'next/server';
 import { formSchema } from '@/lib/form-schema';
-
-// Google Sheets configuration
-const SPREADSHEET_ID = process.env.GOOGLE_SHEETS_SPREADSHEET_ID || '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'; // Default to a sample sheet
-const SHEET_NAME = 'GetStartedForm';
-
-async function getGoogleSheetsClient() {
-  const credentials = JSON.parse(
-    Buffer.from(process.env.GOOGLE_SERVICE_ACCOUNT_KEY || '', 'base64').toString()
-  );
-
-  const auth = new google.auth.GoogleAuth({
-    credentials,
-    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-  });
-
-  return google.sheets({ version: 'v4', auth });
-}
+import { supabaseAdmin } from '@/lib/supabase';
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,80 +17,59 @@ export async function POST(request: NextRequest) {
 
     const formData = validationResult.data;
 
-    // Initialize Google Sheets client
-    const sheets = await getGoogleSheetsClient();
+    // Prepare the data for Supabase - handle both requiredService and requiredServices
+    const requiredServiceValue = formData.requiredServices
+      ? formData.requiredServices.join(', ') // Convert array to comma-separated string
+      : formData.requiredService || '';
 
-    // Prepare the data to append
-    const values = [
-      [
-        new Date().toISOString(), // Timestamp
-        formData.name,
-        formData.requiredService,
-        formData.countryOfOrigin,
-        formData.countryOfResidence,
-        formData.mobileNumber,
-        formData.email,
-      ],
-    ];
+    const submissionData = {
+      name: formData.name,
+      required_service: requiredServiceValue,
+      country_of_origin: formData.countryOfOrigin,
+      country_of_residence: formData.countryOfResidence,
+      mobile_number: formData.mobileNumber,
+      email: formData.email,
+      application_type: formData.requiredServices ? 'bde' : 'general', // Track application type
+      created_at: new Date().toISOString(),
+    };
 
-    // Check if sheet exists, if not create it
-    try {
-      await sheets.spreadsheets.values.append({
-        spreadsheetId: SPREADSHEET_ID,
-        range: `${SHEET_NAME}!A:G`,
-        valueInputOption: 'RAW',
-        requestBody: {
-          values,
-        },
-      });
-    } catch (error) {
-      // If sheet doesn't exist, create it first
-      try {
-        await sheets.spreadsheets.batchUpdate({
-          spreadsheetId: SPREADSHEET_ID,
-          requestBody: {
-            requests: [
-              {
-                addSheet: {
-                  properties: {
-                    title: SHEET_NAME,
-                  },
-                },
-              },
-            ],
-          },
-        });
+    // Insert into Supabase using admin client to bypass RLS
+    const { data, error } = await supabaseAdmin
+      .from('primai_form_submissions')
+      .insert([submissionData])
+      .select();
 
-        // Add headers
-        await sheets.spreadsheets.values.update({
-          spreadsheetId: SPREADSHEET_ID,
-          range: `${SHEET_NAME}!A1:G1`,
-          valueInputOption: 'RAW',
-          requestBody: {
-            values: [['Timestamp', 'Name', 'Required Service', 'Country of Origin', 'Country of Residence', 'Mobile Number', 'Email']],
-          },
-        });
+    if (error) {
+      console.error('Supabase error:', error);
 
-        // Now append the data
-        await sheets.spreadsheets.values.append({
-          spreadsheetId: SPREADSHEET_ID,
-          range: `${SHEET_NAME}!A:G`,
-          valueInputOption: 'RAW',
-          requestBody: {
-            values,
-          },
-        });
-      } catch (sheetError) {
-        console.error('Error creating sheet:', sheetError);
+      // If Supabase table doesn't exist, provide instructions
+      if (error.message?.includes('relation "primai_form_submissions" does not exist')) {
+        console.log('Supabase table not found. Please create the table manually in Supabase dashboard.');
+        console.log('Form data received:', formData);
         return NextResponse.json(
-          { error: 'Failed to create Google Sheets worksheet' },
-          { status: 500 }
+          {
+            message: 'Form submitted successfully (table needs to be created)',
+            data: formData,
+            note: 'Please create the primai_form_submissions table in your Supabase dashboard using the SQL from supabase_setup.sql'
+          },
+          { status: 200 }
         );
       }
+
+      return NextResponse.json(
+        { error: 'Failed to save form data to database' },
+        { status: 500 }
+      );
     }
 
+    console.log('Form data saved to Supabase:', data);
+
     return NextResponse.json(
-      { message: 'Form submitted successfully', data: formData },
+      {
+        message: 'Form submitted successfully',
+        data: formData,
+        supabaseData: data
+      },
       { status: 200 }
     );
   } catch (error) {

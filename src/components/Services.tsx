@@ -224,19 +224,21 @@ export default function Services() {
   };
 
   return (
-    <section ref={servicesRef} className="py-8 md:py-16 px-4 md:px-10 bg-gradient-to-br from-purple-50 to-purple-100 ">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-6 md:mb-10">
-          <h2 className={`text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 md:mb-3 leading-tight transition-all duration-600 ${servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>PrimAI Innovation Suite</h2>
-          <p className={`text-base md:text-lg text-gray-600 leading-relaxed md:leading-7 px-2 transition-all duration-600 delay-200 ${servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>Comprehensive Solutions for the Decentralized Future</p>
+    <section ref={servicesRef} className="py-16 md:py-24 px-4 md:px-8 bg-gradient-to-br from-purple-50 to-purple-100 relative overflow-hidden">
+      {/* Background decoration */}
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="text-center mb-3 md:mb-4">
+          <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 md:mb-3 leading-tight transition-all duration-600 ${servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>PrimAI Innovation Suite</h2>
+          <p className={`text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed md:leading-7 px-4 md:px-6 transition-all duration-600 delay-200 ${servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>Comprehensive Solutions for the Decentralized Future</p>
         </div>
 
         {/* Mobile-First Service Cards */}
-        <div className="space-y-3 md:hidden">
+        <div className="space-y-4 md:hidden">
           {mobileServices.map((service) => (
             <div
               key={service.id}
-              className="bg-white border border-gray-200 rounded-xl p-3 shadow-sm hover:shadow-md transition-all cursor-pointer"
+              className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-lg transition-all cursor-pointer min-h-[80px]"
               onClick={() => setActiveService(activeService === service.id ? '' : service.id)}
             >
               {/* Service Header */}
@@ -286,11 +288,11 @@ export default function Services() {
             <div className="overflow-hidden relative">
               <div className="flex transition-transform duration-700 ease-out" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
                 {serviceSlides.map((slide, index) => (
-                  <div key={index} className="min-w-0 flex flex-col md:flex-row md:items-stretch md:justify-center gap-8 px-4 flex-shrink-0 w-full overflow-x-hidden">
-                    <div className="flex-1 max-w-full md:max-w-[480px] space-y-0 order-2 md:order-1 px-0 flex flex-col">
+                  <div key={index} className="min-w-0 flex flex-col md:flex-row md:items-stretch md:justify-center gap-6 px-6 py-6 flex-shrink-0 w-full overflow-x-hidden">
+                    <div className="flex-1 max-w-full md:max-w-[450px] space-y-0 order-2 md:order-1 px-0 flex flex-col min-h-[400px]">
                       {/* Fixed header section */}
-                      <div className="mb-4">
-                        <div className={`flex justify-between items-center mb-3 ${index === currentSlide ? '' : ''}`}>
+                      <div className="mb-6">
+                        <div className={`flex justify-between items-center mb-4 ${index === currentSlide ? '' : ''}`}>
                           <div className={`inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${slide.badgeColor} text-white rounded-full text-sm font-bold uppercase tracking-wider ${isAnimating && currentSlide === index ? 'animate-pulse' : ''}`}>
                             <div className="w-2 h-2 bg-white rounded-full"></div>
                             {slide.badge}
@@ -318,23 +320,23 @@ export default function Services() {
                                   style={{ transition: 'stroke-dashoffset 1s ease-in-out' }}
                                 />
                               </svg>
-                              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-xl font-bold text-blue-900">
+                              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-sm font-bold text-blue-900">
                                 {remainingTime}
                               </div>
                             </div>
                           )}
                         </div>
-                        <h3 className="text-xl md:text-3xl font-bold text-black-900 leading-tight mb-2">{slide.title}</h3>
-                        <p className="text-base text-black-700 leading-relaxed">{slide.description}</p>
+                        <h3 className="text-xl md:text-3xl font-bold text-gray-900 leading-tight mb-3">{slide.title}</h3>
+                        <p className="text-base text-gray-700 leading-relaxed">{slide.description}</p>
                       </div>
-                      
+
                       {/* Scrollable content section */}
                       <div className="flex-1 overflow-y-auto mb-4 overflow-x-hidden">
                         <ul className="space-y-2">
                           {slide.features.map((feature, idx) => (
                             <li
                               key={idx}
-                              className={`flex items-start gap-3 text-black-700 font-medium text-black-500 transition-all duration-700 ease-out ${
+                              className={`flex items-start gap-3 text-gray-700 font-medium transition-all duration-700 ease-out ${
                                 currentSlide === index && !isAnimating
                                   ? 'translate-x-0 opacity-100'
                                   : '-translate-x-12 opacity-0'
@@ -343,7 +345,7 @@ export default function Services() {
                                 transitionDelay: currentSlide === index && !isAnimating ? `${idx * 100}ms` : '0ms'
                               }}
                             >
-                              <span className="text-indigo-600 mt-0.5 text-base">•</span>
+                              <span className="text-indigo-600 mt-0.5">•</span>
                               <span className="flex-1">{feature}</span>
                             </li>
                           ))}
@@ -351,18 +353,18 @@ export default function Services() {
                       </div>
 
                       {/* Fixed footer section */}
-                      <div className="mt-auto mb-6 flex justify-end">
-                        <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-bold text-sm hover:shadow-lg hover:scale-105 transition-all flex items-center justify-center gap-2 min-h-[40px]">
+                      <div className="mt-auto flex justify-end">
+                        <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-bold hover:shadow-lg hover:scale-105 transition-all flex items-center justify-center gap-2">
                           Explore Solutions
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                             <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
                         </button>
                       </div>
                     </div>
 
-                    <div className="flex-1 max-w-full md:max-w-[500px] flex items-center justify-center order-1 md:order-2 px-0">
-                      <div className="w-full h-64 md:h-80 relative flex items-center justify-center bg-gray-50 rounded-2xl overflow-hidden">
+                    <div className="flex-1 max-w-full md:max-w-[450px] flex items-center justify-center order-1 md:order-2 px-0">
+                      <div className="w-full h-72 md:h-80 relative flex items-center justify-center bg-gray-50 rounded-2xl overflow-hidden">
                         <div className={`transition-all duration-1000 ease-out ${isAnimating && currentSlide === index ? 'scale-100 opacity-100 rotate-0' : 'scale-90 opacity-80 rotate-2'}`}>
                           {slide.illustration}
                         </div>
