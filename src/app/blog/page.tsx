@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { supabase, type BlogPost } from "@/lib/supabase";
-import { Calendar, User, Tag, Plus, Search, Filter } from "lucide-react";
+import { Calendar, User, Tag, Search, Filter, Settings } from "lucide-react";
 import { isAdminAuthenticated } from "@/lib/auth";
 
 export default function BlogPage() {
@@ -140,14 +139,14 @@ export default function BlogPage() {
               </label>
             </div>
 
-            {/* Create Post Button - Admin Only */}
+            {/* Admin Link */}
             {isAdmin && (
               <Link
-                href="/blog/create"
+                href="/admin/blog"
                 className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
               >
-                <Plus className="w-4 h-4 mr-2" />
-                Create Post
+                <Settings className="w-4 h-4 mr-2" />
+                Manage Blog
               </Link>
             )}
           </div>
@@ -167,11 +166,11 @@ export default function BlogPage() {
             </p>
             {isAdmin && (
               <Link
-                href="/blog/create"
+                href="/admin/blog"
                 className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
               >
-                <Plus className="w-4 h-4 mr-2" />
-                Create Your First Post
+                <Settings className="w-4 h-4 mr-2" />
+                Manage Blog Posts
               </Link>
             )}
           </div>
@@ -182,7 +181,18 @@ export default function BlogPage() {
                 key={post.id}
                 className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
               >
-                {/* Post Header */}
+                {/* Featured Image */}
+                {post.featuredImage && (
+                  <div className="aspect-video w-full">
+                    <img
+                      src={post.featuredImage}
+                      alt={post.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+
+                {/* Content */}
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-3">
                     <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${

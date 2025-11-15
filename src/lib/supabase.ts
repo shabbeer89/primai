@@ -27,7 +27,13 @@ export interface BlogPost {
   excerpt: string
   author: string
   tags: string[]
+  categories: string[]
   published: boolean
+  publishedAt?: string
+  featuredImage?: string
+  metaTitle?: string
+  metaDescription?: string
+  keywords?: string
   created_at: string
   updated_at: string
   slug: string

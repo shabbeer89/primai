@@ -224,7 +224,7 @@ export default function Services() {
   };
 
   return (
-    <section ref={servicesRef} className="py-16 md:py-24 px-4 md:px-8 bg-gradient-to-br from-purple-50 to-purple-100 relative overflow-hidden">
+    <section ref={servicesRef} className="py-8 md:py-24 px-4 md:px-8 bg-gradient-to-br from-purple-50 to-purple-100 relative overflow-hidden">
       {/* Background decoration */}
 
       <div className="max-w-6xl mx-auto relative z-10">

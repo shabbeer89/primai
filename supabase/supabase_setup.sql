@@ -6,11 +6,45 @@ CREATE TABLE IF NOT EXISTS blog_posts (
   excerpt TEXT NOT NULL,
   author TEXT NOT NULL,
   tags JSONB DEFAULT '[]'::jsonb,
+  categories JSONB DEFAULT '[]'::jsonb,
   published BOOLEAN DEFAULT FALSE,
+  "publishedAt" TIMESTAMP WITH TIME ZONE,
+  "featuredImage" TEXT,
+  "metaTitle" TEXT,
+  "metaDescription" TEXT,
+  keywords TEXT,
   slug TEXT NOT NULL UNIQUE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+-- Add new columns if they don't exist (for existing installations)
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'blog_posts' AND column_name = 'categories') THEN
+        ALTER TABLE blog_posts ADD COLUMN categories JSONB DEFAULT '[]'::jsonb;
+    END IF;
+
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'blog_posts' AND column_name = 'publishedAt') THEN
+        ALTER TABLE blog_posts ADD COLUMN "publishedAt" TIMESTAMP WITH TIME ZONE;
+    END IF;
+
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'blog_posts' AND column_name = 'featuredImage') THEN
+        ALTER TABLE blog_posts ADD COLUMN "featuredImage" TEXT;
+    END IF;
+
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'blog_posts' AND column_name = 'metaTitle') THEN
+        ALTER TABLE blog_posts ADD COLUMN "metaTitle" TEXT;
+    END IF;
+
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'blog_posts' AND column_name = 'metaDescription') THEN
+        ALTER TABLE blog_posts ADD COLUMN "metaDescription" TEXT;
+    END IF;
+
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'blog_posts' AND column_name = 'keywords') THEN
+        ALTER TABLE blog_posts ADD COLUMN keywords TEXT;
+    END IF;
+END $$;
 
 -- Create indexes for blog_posts for better performance
 CREATE INDEX IF NOT EXISTS idx_blog_posts_published ON blog_posts(published);

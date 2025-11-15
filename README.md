@@ -93,6 +93,11 @@ A **government-grade**, **enterprise-level** business platform featuring cutting
 - **Legal Compliance**: GDPR-compliant links and cookie management
 - **Contact Integration**: Multiple contact methods with location data
 
+##### **Resources & Administration**
+- **[Admin Login](http://localhost:3000/admin/login)** - Secure administrative access
+- **Credentials**: `admin@primai.com` / `primai2024`
+- **Features**: Blog management, form submissions tracking, analytics dashboard
+
 ### 🌐 **Supporting Business Components**
 
 #### **Blog Management System (`src/app/blog/`)**

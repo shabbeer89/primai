@@ -20,6 +20,7 @@ export default function BlogPostPage() {
   }, [params.slug]);
 
   const fetchPost = async (slug: string) => {
+
     try {
       if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
         setError('Supabase is not configured. Please set up your environment variables first.');
@@ -154,7 +155,7 @@ export default function BlogPostPage() {
             </span>
             <div className="flex items-center space-x-4">
               <Link
-                href={`/blog/create`}
+                href={`/admin/blog`}
                 className="inline-flex items-center px-3 py-1 text-sm text-gray-600 hover:text-indigo-600 transition-colors"
               >
                 <Edit className="w-4 h-4 mr-1" />

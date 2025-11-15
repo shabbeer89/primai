@@ -18,7 +18,15 @@ export const blogPostSchema = z.object({
   tags: z.array(z.string())
     .min(1, "At least one tag is required")
     .max(10, "Maximum 10 tags allowed"),
+  categories: z.array(z.string())
+    .min(1, "At least one category is required")
+    .max(5, "Maximum 5 categories allowed"),
   published: z.boolean(),
+  publishedAt: z.string().nullable().optional(),
+  featuredImage: z.string().optional(),
+  metaTitle: z.string().max(60, "Meta title must be less than 60 characters").optional(),
+  metaDescription: z.string().max(160, "Meta description must be less than 160 characters").optional(),
+  keywords: z.string().optional(),
 });
 
 export type BlogPostFormData = z.infer<typeof blogPostSchema>;

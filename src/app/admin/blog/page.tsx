@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -21,6 +22,7 @@ import {
 import { blogPostSchema, type BlogPostFormData } from "@/lib/blog-schema";
 import { supabase } from "@/lib/supabase";
 import { isAdminAuthenticated } from "@/lib/auth";
+import BlogPostEditor from "@/components/BlogPostEditor";
 
 interface BlogPost {
   id: string;
@@ -29,7 +31,13 @@ interface BlogPost {
   excerpt: string;
   author: string;
   tags: string[];
+  categories: string[];
   published: boolean;
+  publishedAt?: string;
+  featuredImage?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string;
   slug: string;
   created_at: string;
   updated_at: string;
@@ -112,12 +120,6 @@ export default function AdminBlogManagement() {
   const handleEdit = (blog: BlogPost) => {
     setViewMode('edit');
     setEditingBlog(blog);
-    setValue('title', blog.title);
-    setValue('content', blog.content);
-    setValue('excerpt', blog.excerpt);
-    setValue('author', blog.author);
-    setValue('tags', blog.tags);
-    setValue('published', blog.published);
   };
 
   const handleCancel = () => {
@@ -127,6 +129,7 @@ export default function AdminBlogManagement() {
   };
 
   const onSubmit = async (data: BlogPostFormData) => {
+    console.log('onSubmit called with data:', data);
     setIsSubmitting(true);
     try {
       // Create slug from title
@@ -144,7 +147,13 @@ export default function AdminBlogManagement() {
             excerpt: data.excerpt,
             author: data.author,
             tags: data.tags || [],
+            categories: data.categories || [],
             published: data.published,
+            publishedAt: data.publishedAt,
+            featuredImage: data.featuredImage,
+            metaTitle: data.metaTitle,
+            metaDescription: data.metaDescription,
+            keywords: data.keywords,
             slug: slug,
           });
 
@@ -159,7 +168,13 @@ export default function AdminBlogManagement() {
             excerpt: data.excerpt,
             author: data.author,
             tags: data.tags || [],
+            categories: data.categories || [],
             published: data.published,
+            publishedAt: data.publishedAt,
+            featuredImage: data.featuredImage,
+            metaTitle: data.metaTitle,
+            metaDescription: data.metaDescription,
+            keywords: data.keywords,
             slug: slug, // Update slug in case title changed
             updated_at: new Date().toISOString(),
           })
@@ -216,135 +231,26 @@ export default function AdminBlogManagement() {
   if (viewMode === 'create' || viewMode === 'edit') {
     return (
       <div className="min-h-screen bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Header */}
-          <div className="mb-8">
-            <button
-              onClick={handleCancel}
-              className="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium mb-4 transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Blog Management
-            </button>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              {viewMode === 'create' ? 'Create New Blog Post' : 'Edit Blog Post'}
-            </h1>
-            <p className="text-gray-600">
-              {viewMode === 'create' ? 'Create a new blog post for your website' : 'Make changes to the blog post'}
-            </p>
-          </div>
-
-          {/* Form */}
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 space-y-6">
-              {/* Title */}
-              <div>
-                <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
-                  Title *
-                </label>
-                <input
-                  {...register("title")}
-                  type="text"
-                  id="title"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                  placeholder="Enter blog post title"
-                />
-                {errors.title && <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>}
-              </div>
-
-              {/* Author */}
-              <div>
-                <label htmlFor="author" className="block text-sm font-medium text-gray-700 mb-2">
-                  Author *
-                </label>
-                <input
-                  {...register("author")}
-                  type="text"
-                  id="author"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                  placeholder="Enter author name"
-                />
-                {errors.author && <p className="mt-1 text-sm text-red-600">{errors.author.message}</p>}
-              </div>
-
-              {/* Excerpt */}
-              <div>
-                <label htmlFor="excerpt" className="block text-sm font-medium text-gray-700 mb-2">
-                  Excerpt *
-                </label>
-                <textarea
-                  {...register("excerpt")}
-                  id="excerpt"
-                  rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none"
-                  placeholder="Brief summary of the blog post"
-                />
-                {errors.excerpt && <p className="mt-1 text-sm text-red-600">{errors.excerpt.message}</p>}
-              </div>
-
-              {/* Tags */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Tags *
-                </label>
-                <input
-                  {...register("tags")}
-                  type="text"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                  placeholder="Enter tags separated by commas"
-                />
-                {errors.tags && <p className="mt-1 text-sm text-red-600">{errors.tags.message}</p>}
-              </div>
-
-              {/* Published */}
-              <div className="flex items-center">
-                <input
-                  {...register("published")}
-                  type="checkbox"
-                  id="published"
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                />
-                <label htmlFor="published" className="ml-2 block text-sm text-gray-700">
-                  Publish immediately
-                </label>
-              </div>
-
-              {/* Content */}
-              <div>
-                <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
-                  Content *
-                </label>
-                <textarea
-                  {...register("content")}
-                  id="content"
-                  rows={15}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none font-mono text-sm"
-                  placeholder="Write your blog post content here..."
-                />
-                {errors.content && <p className="mt-1 text-sm text-red-600">{errors.content.message}</p>}
-              </div>
-            </div>
-
-            {/* Submit Buttons */}
-            <div className="flex gap-4">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-              >
-                <Save className="w-4 h-4 mr-2" />
-                {isSubmitting ? "Saving..." : viewMode === 'create' ? "Create Post" : "Update Post"}
-              </button>
-              <button
-                type="button"
-                onClick={handleCancel}
-                className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex items-center"
-              >
-                <X className="w-4 h-4 mr-2" />
-                Cancel
-              </button>
-            </div>
-          </form>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <BlogPostEditor
+            initialData={editingBlog ? {
+              title: editingBlog.title,
+              content: editingBlog.content,
+              excerpt: editingBlog.excerpt,
+              author: editingBlog.author,
+              tags: (editingBlog.tags && editingBlog.tags.length > 0) ? editingBlog.tags : ['blog'],
+              categories: (editingBlog.categories && editingBlog.categories.length > 0) ? editingBlog.categories : ['General'],
+              published: editingBlog.published,
+              publishedAt: editingBlog.publishedAt,
+              featuredImage: editingBlog.featuredImage,
+              metaTitle: editingBlog.metaTitle,
+              metaDescription: editingBlog.metaDescription,
+              keywords: editingBlog.keywords,
+            } : undefined}
+            onSubmit={onSubmit}
+            isSubmitting={isSubmitting}
+            mode={viewMode}
+          />
         </div>
       </div>
     );

@@ -36,6 +36,7 @@ Start your Amazing journey into the Web3 revolution with PrimAI        </h3>
               <h4 className="mb-6 text-lg font-semibold">Resources</h4>
               <ul className="space-y-3">
                 <li><a href="/news" className="text-gray-300 hover:text-white transition-colors">Blogs</a></li>
+                <li><a href="/admin/login" className="text-gray-300 hover:text-white transition-colors">Administration</a></li>
               </ul>
             </div>
             <div className="text-center">
@@ -136,6 +137,7 @@ Start your Amazing journey into the Web3 revolution with PrimAI        </h3>
               {openAccordion === 'resources' && (
                 <ul className="space-y-3">
                   <li><a href="/news" className="text-gray-300 hover:text-white transition-colors">Blogs</a></li>
+                  <li><a href="/admin/login" className="text-gray-300 hover:text-white transition-colors">Administration</a></li>
                 </ul>
               )}
             </div>
