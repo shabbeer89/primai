@@ -93,7 +93,8 @@ export default function Navbar() {
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200 px-4 py-4">
           <ul className="space-y-4">
-            <li><Link href="/contact-us" className="block text-gray-700 hover:text-indigo-600 font-medium py-3 px-2 rounded-lg hover:bg-gray-50 transition-colors" onClick={() => setIsMenuOpen(false)}>Contact Us</Link></li>
+                       <li><Link href="/blog" className="block text-gray-700 hover:text-indigo-600 font-medium py-3 px-2 rounded-lg hover:bg-gray-50 transition-colors" onClick={() => setIsMenuOpen(false)}>Blog</Link></li>
+ <li><Link href="/contact-us" className="block text-gray-700 hover:text-indigo-600 font-medium py-3 px-2 rounded-lg hover:bg-gray-50 transition-colors" onClick={() => setIsMenuOpen(false)}>Contact Us</Link></li>
             <li><Link href="/affiliate" className="block text-gray-700 hover:text-indigo-600 font-medium py-3 px-2 rounded-lg hover:bg-gray-50 transition-colors" onClick={() => setIsMenuOpen(false)}>Earn with PrimAI</Link></li>
             {isAdmin && (
               <>
