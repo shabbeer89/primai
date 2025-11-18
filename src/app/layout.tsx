@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "PrimAI",
   description: "AI-powered solutions for modern businesses",
   icons: {
-    icon: "/primai-logo.svg",
+    icon: "/primai-logo.png",
   },
 };
 
