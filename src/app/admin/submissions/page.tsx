@@ -27,7 +27,6 @@ import {
   Building2,
   Users
 } from "lucide-react";
-import { supabase } from "@/lib/supabase";
 import { isAdminAuthenticated } from "@/lib/auth";
 
 interface FormSubmission {
@@ -71,15 +70,21 @@ export default function AdminSubmissionsManagement() {
 
   const fetchSubmissions = async () => {
     try {
-      const { data, error } = await supabase
-        .from('primai_form_submissions')
-        .select('*')
-        .order('created_at', { ascending: false });
+      const response = await fetch('/api/admin/submissions', {
+        headers: {
+          'x-admin-auth': 'true'
+        }
+      });
 
-      if (error) throw error;
+      if (!response.ok) {
+        throw new Error('Failed to fetch submissions');
+      }
+
+      const data = await response.json();
       setSubmissions(data || []);
     } catch (error) {
       console.error('Error fetching submissions:', error);
+      setSubmissions([]);
     } finally {
       setIsLoading(false);
     }
@@ -109,13 +114,13 @@ export default function AdminSubmissionsManagement() {
 
   const filteredSubmissions = sortedSubmissions.filter(submission => {
     const matchesSearch = submission.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         submission.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         submission.required_service.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         submission.country_of_origin.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         submission.country_of_residence.toLowerCase().includes(searchTerm.toLowerCase());
+      submission.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      submission.required_service.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      submission.country_of_origin.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      submission.country_of_residence.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesFilter = filterType === 'all' ||
-                         submission.application_type === filterType;
+      submission.application_type === filterType;
 
     return matchesSearch && matchesFilter;
   });
@@ -169,14 +174,16 @@ export default function AdminSubmissionsManagement() {
     }
 
     try {
-      for (const id of selectedSubmissions) {
-        const { error } = await supabase
-          .from('primai_form_submissions')
-          .delete()
-          .eq('id', id);
+      const response = await fetch('/api/admin/submissions', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-auth': 'true'
+        },
+        body: JSON.stringify({ ids: Array.from(selectedSubmissions) })
+      });
 
-        if (error) throw error;
-      }
+      if (!response.ok) throw new Error('Failed to delete');
 
       alert(`${selectedSubmissions.size} submissions deleted successfully!`);
       setSelectedSubmissions(new Set());
@@ -193,12 +200,16 @@ export default function AdminSubmissionsManagement() {
     }
 
     try {
-      const { error } = await supabase
-        .from('primai_form_submissions')
-        .delete()
-        .eq('id', submissionId);
+      const response = await fetch('/api/admin/submissions', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-auth': 'true'
+        },
+        body: JSON.stringify({ ids: [submissionId] })
+      });
 
-      if (error) throw error;
+      if (!response.ok) throw new Error('Failed to delete');
 
       alert('Submission deleted successfully!');
       fetchSubmissions();
@@ -323,11 +334,10 @@ export default function AdminSubmissionsManagement() {
               {/* Application Type Badge */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Application Type</label>
-                <span className={`px-3 py-1 text-xs font-medium rounded-full ${
-                  selectedSubmission.application_type === 'bde'
-                    ? 'bg-purple-100 text-purple-800'
-                    : 'bg-blue-100 text-blue-800'
-                }`}>
+                <span className={`px-3 py-1 text-xs font-medium rounded-full ${selectedSubmission.application_type === 'bde'
+                  ? 'bg-purple-100 text-purple-800'
+                  : 'bg-blue-100 text-blue-800'
+                  }`}>
                   {selectedSubmission.application_type === 'bde' ? 'Business Development Executive' : 'General Inquiry'}
                 </span>
               </div>
@@ -500,21 +510,19 @@ export default function AdminSubmissionsManagement() {
                 <div className="flex bg-gray-100 rounded-lg p-1">
                   <button
                     onClick={() => setViewMode('table')}
-                    className={`px-3 py-2 rounded-md transition-all duration-200 ${
-                      viewMode === 'table'
-                        ? 'bg-white shadow-sm text-indigo-600'
-                        : 'text-gray-600 hover:text-gray-900'
-                    }`}
+                    className={`px-3 py-2 rounded-md transition-all duration-200 ${viewMode === 'table'
+                      ? 'bg-white shadow-sm text-indigo-600'
+                      : 'text-gray-600 hover:text-gray-900'
+                      }`}
                   >
                     Table
                   </button>
                   <button
                     onClick={() => setViewMode('cards')}
-                    className={`px-3 py-2 rounded-md transition-all duration-200 ${
-                      viewMode === 'cards'
-                        ? 'bg-white shadow-sm text-indigo-600'
-                        : 'text-gray-600 hover:text-gray-900'
-                    }`}
+                    className={`px-3 py-2 rounded-md transition-all duration-200 ${viewMode === 'cards'
+                      ? 'bg-white shadow-sm text-indigo-600'
+                      : 'text-gray-600 hover:text-gray-900'
+                      }`}
                   >
                     Cards
                   </button>
@@ -649,11 +657,10 @@ export default function AdminSubmissionsManagement() {
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            submission.application_type === 'bde'
-                              ? 'bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800'
-                              : 'bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800'
-                          }`}>
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${submission.application_type === 'bde'
+                            ? 'bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800'
+                            : 'bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800'
+                            }`}>
                             {submission.application_type === 'bde' ? 'Business Development' : 'General Inquiry'}
                           </span>
                         </td>
@@ -710,11 +717,10 @@ export default function AdminSubmissionsManagement() {
                           key={page}
                           onClick={() => setCurrentPage(page)}
                           disabled={page > totalPages}
-                          className={`px-3 py-2 border rounded-lg text-sm font-medium transition-colors ${
-                            page === currentPage
-                              ? 'bg-indigo-600 text-white border-indigo-600'
-                              : 'border-gray-300 text-gray-700 bg-white hover:bg-gray-50'
-                          }`}
+                          className={`px-3 py-2 border rounded-lg text-sm font-medium transition-colors ${page === currentPage
+                            ? 'bg-indigo-600 text-white border-indigo-600'
+                            : 'border-gray-300 text-gray-700 bg-white hover:bg-gray-50'
+                            }`}
                         >
                           {page}
                         </button>
@@ -749,11 +755,10 @@ export default function AdminSubmissionsManagement() {
                         </div>
                         <div>
                           <h3 className="font-semibold text-gray-900">{submission.name}</h3>
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                            submission.application_type === 'bde'
-                              ? 'bg-purple-100 text-purple-800'
-                              : 'bg-blue-100 text-blue-800'
-                          }`}>
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${submission.application_type === 'bde'
+                            ? 'bg-purple-100 text-purple-800'
+                            : 'bg-blue-100 text-blue-800'
+                            }`}>
                             {submission.application_type === 'bde' ? 'BDE' : 'General'}
                           </span>
                         </div>
@@ -833,11 +838,10 @@ export default function AdminSubmissionsManagement() {
                         key={page}
                         onClick={() => setCurrentPage(page)}
                         disabled={page > totalPages}
-                        className={`px-3 py-2 border rounded-lg text-sm font-medium transition-colors ${
-                          page === currentPage
-                            ? 'bg-indigo-600 text-white border-indigo-600'
-                            : 'border-gray-300 text-gray-700 bg-white hover:bg-gray-50'
-                        }`}
+                        className={`px-3 py-2 border rounded-lg text-sm font-medium transition-colors ${page === currentPage
+                          ? 'bg-indigo-600 text-white border-indigo-600'
+                          : 'border-gray-300 text-gray-700 bg-white hover:bg-gray-50'
+                          }`}
                       >
                         {page}
                       </button>

@@ -6,6 +6,8 @@ import { supabase, type BlogPost } from "@/lib/supabase";
 import { Calendar, User, Tag, Search, Filter, Settings } from "lucide-react";
 import { isAdminAuthenticated } from "@/lib/auth";
 
+import Navbar from "@/components/Navbar";
+
 export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -55,8 +57,8 @@ export default function BlogPage() {
 
   const filteredPosts = posts.filter(post => {
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.author.toLowerCase().includes(searchTerm.toLowerCase());
+      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.author.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesTag = !selectedTag || post.tags.includes(selectedTag);
     return matchesSearch && matchesTag;
   });
@@ -86,6 +88,7 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-24 pb-12">
+      <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -195,11 +198,10 @@ export default function BlogPage() {
                 {/* Content */}
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-3">
-                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                      post.published
+                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${post.published
                         ? 'bg-green-100 text-green-800'
                         : 'bg-yellow-100 text-yellow-800'
-                    }`}>
+                      }`}>
                       {post.published ? 'Published' : 'Draft'}
                     </span>
                     <time className="text-sm text-gray-500 flex items-center">

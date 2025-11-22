@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { supabase, type BlogPost } from "@/lib/supabase";
 import { ArrowLeft, Calendar, User, Tag, Edit, Share2 } from "lucide-react";
+import Navbar from "@/components/Navbar";
 
 export default function BlogPostPage() {
   const params = useParams();
@@ -79,6 +80,7 @@ export default function BlogPostPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 pt-24 pb-12">
+        <Navbar />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
@@ -92,6 +94,7 @@ export default function BlogPostPage() {
   if (error || !post) {
     return (
       <div className="min-h-screen bg-gray-50 pt-24 pb-12">
+        <Navbar />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">
@@ -117,6 +120,7 @@ export default function BlogPostPage() {
   if (!post.published) {
     return (
       <div className="min-h-screen bg-gray-50 pt-24 pb-12">
+        <Navbar />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center">
             <h1 className="text-xl font-semibold text-yellow-800 mb-2">Draft Post</h1>
@@ -138,6 +142,7 @@ export default function BlogPostPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-24 pb-12">
+      <Navbar />
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <header className="mb-8">
