@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
+import { Mail, MessageCircle, Phone } from 'lucide-react';
 
 const ContactUs: NextPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -229,23 +230,34 @@ const ContactUs: NextPage = () => {
               </p>
               <div className="flex flex-col gap-4 justify-center items-center max-w-md mx-auto w-full">
                 {/* Email Button */}
-                <div className="group relative w-full h-16 bg-white/10 backdrop-blur-md rounded-xl border border-white/10 overflow-hidden cursor-pointer transition-all duration-300 hover:bg-white/20 hover:border-indigo-500/30 hover:shadow-lg hover:shadow-indigo-500/20">
-                  <div className="absolute inset-0 flex items-center justify-center transition-all duration-500 group-hover:-translate-y-full group-hover:opacity-0">
-                    <span className="text-lg font-semibold flex items-center gap-2">📧 Drop us an email</span>
+                <div tabIndex={0} className="group relative w-full h-16 bg-white/10 backdrop-blur-md rounded-xl border border-white/10 overflow-hidden cursor-pointer transition-all duration-300 hover:bg-white/20 hover:border-indigo-500/30 hover:shadow-lg hover:shadow-indigo-500/20 focus:bg-white/20 focus:border-indigo-500/30 focus:shadow-lg focus:shadow-indigo-500/20 active:bg-white/20 active:border-indigo-500/30 active:shadow-lg active:shadow-indigo-500/20 outline-none">
+                  <div className="absolute inset-0 flex items-center justify-center transition-all duration-500 group-hover:-translate-y-full group-hover:opacity-0 group-focus:-translate-y-full group-focus:opacity-0 group-active:-translate-y-full group-active:opacity-0">
+                    <span className="text-lg font-semibold flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/30">
+                        <Mail className="w-4 h-4 text-white" />
+                      </div>
+                      Drop us an email
+                    </span>
                   </div>
-                  <div className="absolute inset-0 flex items-center justify-center transition-all duration-500 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100">
+                  <div className="absolute inset-0 flex items-center justify-center transition-all duration-500 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 group-focus:translate-y-0 group-focus:opacity-100 group-active:translate-y-0 group-active:opacity-100">
                     <a href="mailto:contact@primai.in" className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg hover:from-indigo-500 hover:to-purple-500 transition-all font-medium shadow-lg">
+                      <Mail className="w-4 h-4" />
                       <span>contact@primai.in</span>
                     </a>
                   </div>
                 </div>
 
                 {/* WhatsApp Button */}
-                <div className="group relative w-full h-16 bg-white/10 backdrop-blur-md rounded-xl border border-white/10 overflow-hidden cursor-pointer transition-all duration-300 hover:bg-white/20 hover:border-green-500/30 hover:shadow-lg hover:shadow-green-500/20">
-                  <div className="absolute inset-0 flex items-center justify-center transition-all duration-500 group-hover:-translate-y-full group-hover:opacity-0">
-                    <span className="text-lg font-semibold flex items-center gap-2">💬 Send a WhatsApp</span>
+                <div tabIndex={0} className="group relative w-full h-16 bg-white/10 backdrop-blur-md rounded-xl border border-white/10 overflow-hidden cursor-pointer transition-all duration-300 hover:bg-white/20 hover:border-green-500/30 hover:shadow-lg hover:shadow-green-500/20 focus:bg-white/20 focus:border-green-500/30 focus:shadow-lg focus:shadow-green-500/20 active:bg-white/20 active:border-green-500/30 active:shadow-lg active:shadow-green-500/20 outline-none">
+                  <div className="absolute inset-0 flex items-center justify-center transition-all duration-500 group-hover:-translate-y-full group-hover:opacity-0 group-focus:-translate-y-full group-focus:opacity-0 group-active:-translate-y-full group-active:opacity-0">
+                    <span className="text-lg font-semibold flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-green-500/30">
+                        <MessageCircle className="w-4 h-4 text-white" />
+                      </div>
+                      Send a WhatsApp
+                    </span>
                   </div>
-                  <div className="absolute inset-0 flex items-center justify-center gap-4 transition-all duration-500 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100">
+                  <div className="absolute inset-0 flex items-center justify-center gap-4 transition-all duration-500 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 group-focus:translate-y-0 group-focus:opacity-100 group-active:translate-y-0 group-active:opacity-100">
                     <a href="https://wa.me/971528815259" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center px-4 py-1 bg-green-600/80 hover:bg-green-500 rounded-lg transition-colors border border-green-400/30">
                       <span className="text-xs font-bold text-green-100">UAE</span>
                       <span className="text-sm font-medium">+971 52 881 5259</span>
@@ -258,11 +270,16 @@ const ContactUs: NextPage = () => {
                 </div>
 
                 {/* Call Button */}
-                <div className="group relative w-full h-16 bg-white/10 backdrop-blur-md rounded-xl border border-white/10 overflow-hidden cursor-pointer transition-all duration-300 hover:bg-white/20 hover:border-purple-500/30 hover:shadow-lg hover:shadow-purple-500/20">
-                  <div className="absolute inset-0 flex items-center justify-center transition-all duration-500 group-hover:-translate-y-full group-hover:opacity-0">
-                    <span className="text-lg font-semibold flex items-center gap-2">📞 Book a call</span>
+                <div tabIndex={0} className="group relative w-full h-16 bg-white/10 backdrop-blur-md rounded-xl border border-white/10 overflow-hidden cursor-pointer transition-all duration-300 hover:bg-white/20 hover:border-purple-500/30 hover:shadow-lg hover:shadow-purple-500/20 focus:bg-white/20 focus:border-purple-500/30 focus:shadow-lg focus:shadow-purple-500/20 active:bg-white/20 active:border-purple-500/30 active:shadow-lg active:shadow-purple-500/20 outline-none">
+                  <div className="absolute inset-0 flex items-center justify-center transition-all duration-500 group-hover:-translate-y-full group-hover:opacity-0 group-focus:-translate-y-full group-focus:opacity-0 group-active:-translate-y-full group-active:opacity-0">
+                    <span className="text-lg font-semibold flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/30">
+                        <Phone className="w-4 h-4 text-white" />
+                      </div>
+                      Book a call
+                    </span>
                   </div>
-                  <div className="absolute inset-0 flex items-center justify-center gap-4 transition-all duration-500 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100">
+                  <div className="absolute inset-0 flex items-center justify-center gap-4 transition-all duration-500 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 group-focus:translate-y-0 group-focus:opacity-100 group-active:translate-y-0 group-active:opacity-100">
                     <a href="tel:+971528815259" className="flex flex-col items-center justify-center px-4 py-1 bg-purple-600/80 hover:bg-purple-500 rounded-lg transition-colors border border-purple-400/30">
                       <span className="text-xs font-bold text-purple-100">UAE</span>
                       <span className="text-sm font-medium">+971 52 881 5259</span>
