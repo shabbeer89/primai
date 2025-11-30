@@ -93,36 +93,28 @@ export default function Navbar() {
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200 px-4 py-4">
           <ul className="space-y-4">
-                       <li><Link href="/blog" className="block text-gray-700 hover:text-indigo-600 font-medium py-3 px-2 rounded-lg hover:bg-gray-50 transition-colors" onClick={() => setIsMenuOpen(false)}>Blog</Link></li>
- <li><Link href="/contact-us" className="block text-gray-700 hover:text-indigo-600 font-medium py-3 px-2 rounded-lg hover:bg-gray-50 transition-colors" onClick={() => setIsMenuOpen(false)}>Contact Us</Link></li>
-            <li><Link href="/affiliate" className="block text-gray-700 hover:text-indigo-600 font-medium py-3 px-2 rounded-lg hover:bg-gray-50 transition-colors" onClick={() => setIsMenuOpen(false)}>Earn with PrimAI</Link></li>
+            <li><Link href="/blog" className="block text-gray-700 hover:text-indigo-600 font-medium py-3 px-2 rounded-lg hover:bg-gray-50 transition-colors text-center" onClick={() => setIsMenuOpen(false)}>Blog</Link></li>
+            <li><Link href="/contact-us" className="block text-gray-700 hover:text-indigo-600 font-medium py-3 px-2 rounded-lg hover:bg-gray-50 transition-colors text-center" onClick={() => setIsMenuOpen(false)}>Contact Us</Link></li>
+            <li><Link href="/affiliate" className="block bg-indigo-600 text-white text-center py-3 px-4 rounded-lg font-semibold hover:bg-indigo-700 transition-colors shadow-lg" onClick={() => setIsMenuOpen(false)}>Earn with PrimAI</Link></li>
             {isAdmin && (
               <>
                 <li className="border-t border-gray-200 pt-4">
-                  <Link href="/admin/dashboard" className="flex items-center text-purple-700 hover:text-purple-800 font-medium py-3 px-2 rounded-lg hover:bg-purple-50 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                  <Link href="/admin/dashboard" className="flex items-center justify-center text-purple-700 hover:text-purple-800 font-medium py-3 px-2 rounded-lg hover:bg-purple-50 transition-colors" onClick={() => setIsMenuOpen(false)}>
                     <Settings className="w-4 h-4 mr-2" />
                     Admin Dashboard
                   </Link>
                 </li>
                 <li>
-                  <Link href="/admin/blog" className="block text-purple-700 hover:text-purple-800 font-medium py-3 px-2 rounded-lg hover:bg-purple-50 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                  <Link href="/admin/blog" className="block text-purple-700 hover:text-purple-800 font-medium py-3 px-2 rounded-lg hover:bg-purple-50 transition-colors text-center" onClick={() => setIsMenuOpen(false)}>
                     Blog Management
                   </Link>
                 </li>
               </>
             )}
-            <li className="pt-2">
-              <Link
-                href="#contact"
-                className="block bg-indigo-600 text-white text-center py-3 px-4 rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Get Started
-              </Link>
-            </li>
           </ul>
         </div>
-      )}
-    </nav>
+      )
+      }
+    </nav >
   );
 }
